@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import SearchBar from './components/SearchBar';
+import Articles from './components/Articles';
+import Pagination from './components/Pagination';
+import { connect } from 'react-redux';
+import { searchHeadlines } from './store/actions/headlinesActions';
+import { useEffect } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = (props) => {
+    
+    const {getInitialHeadlines} = props;
+    useEffect(() => {
+        getInitialHeadlines();
+    }, [getInitialHeadlines])
+    
+    return (
+            <div className="container mt-4">
+                {/* Search Bar */}
+                <SearchBar/>
+                {/* Page Navigation */}
+                <Pagination/>
+                {/* Current Page */}
+                <Articles articles={props.articles} page={props.page}/>
+
+
+            </div>
+    );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        articles: state.headlines.articles,
+        page: state.headlines.currentPage
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getInitialHeadlines: () => dispatch(searchHeadlines())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
