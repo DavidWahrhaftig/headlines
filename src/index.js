@@ -10,6 +10,7 @@ import rootReducer from './store/reducers/rootReducer';
 // Chrome Deve Tools
 // const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
+
 const store = createStore(rootReducer,
     compose(
         applyMiddleware(thunk)
