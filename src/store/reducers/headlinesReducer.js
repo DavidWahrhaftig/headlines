@@ -9,8 +9,7 @@ const initState = {
 const headlinesReducer = (state = initState, action) => {
     switch(action.type) {
         case 'SET_ARTICLES':
-            // return {...state, articles: action.articles, total: action.total, error: null};
-            return {...state, articles: action.articles, error: null};
+            return {...state, articles: action.articles, total: action.total, error: null};
         case 'SET_ARTICLES_ERROR':
             return {...state, error: action.err};
         case 'SET_SEARCH_QUERY':
